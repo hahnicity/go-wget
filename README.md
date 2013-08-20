@@ -1,4 +1,8 @@
-go-wget
-=======
+# Go-WGET
+Perform a GET request and then save its contents to file
 
-A wget-like utility in go
+## Usage
+
+### Main
+
+### Scripting
