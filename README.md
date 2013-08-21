@@ -21,3 +21,10 @@ Example:
         Wget("https://google.com", "")
 Will create a file google.com in the current working directory
 
+More advanced usage can utilize the `MakeRequest` and `WriteToFile` functions
+
+`MakeRequest` will return a http.Response object using the url we provided
+        MakeRequest(url string) *http.Response
+
+`WriteToFile` will write the content in the http.Response to file
+        WriteToFile(fileName string, resp *http.Response)

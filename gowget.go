@@ -12,20 +12,21 @@ const (
     bufSize   = 1024 * 8
 )
 
-//Write results of a GET request to file. If a fileName is given an empty string then the 
-//last chunk of the input url is used as a filename. Eg: http://foo/baz.jar => baz.jar
+//Perform simple GET request and write contents to file. If a fileName is given an empty 
+//string then the last chunk of the input url is used as a filename. 
+//Eg: http://foo/baz.jar => baz.jar
 func Wget(url, fileName string) {
-    resp := getResponse(url)
+    resp := MakeRequest(url)
     if fileName == "" {
         urlSplit := strings.Split(url, "/")
         fileName = urlSplit[len(urlSplit)-1]
     }
-    writeToFile(fileName, resp)
+    WriteToFile(fileName, resp)
 }
 
 
 // Make the GET request to a url, return the response
-func getResponse(url string) *http.Response {
+func MakeRequest(url string) *http.Response {
     tr := new(http.Transport)
     client := &http.Client{Transport: tr}
     resp, err := client.Get(url)
@@ -35,7 +36,7 @@ func getResponse(url string) *http.Response {
 
 
 // Write the response of the GET request to file
-func writeToFile(fileName string, resp *http.Response) {
+func WriteToFile(fileName string, resp *http.Response) {
     // Credit for this implementation should go to github user billnapier
     file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY, 0777)
     errorChecker(err)

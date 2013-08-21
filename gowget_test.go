@@ -9,7 +9,8 @@ import (
 
 func TestWgetWithFileName(t *testing.T) {
     fileName := "foo"
-    wget.Wget("https://google.com", fileName)    
+    wget.Wget("https://google.com", fileName)
+    defer os.Remove(fileName)   
     wd, _ := os.Getwd()
     _, err := os.Open(path.Join(wd, fileName))
     if err != nil {
@@ -19,7 +20,8 @@ func TestWgetWithFileName(t *testing.T) {
 
 func TestWgetWithNoFileName(t *testing.T) {
     fileName := "google.com"
-    wget.Wget("https://google.com", "")    
+    wget.Wget("https://google.com", "")
+    defer os.Remove(fileName)   
     wd, _ := os.Getwd()
     _, err := os.Open(path.Join(wd, fileName))
     if err != nil {
